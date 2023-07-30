@@ -1,0 +1,17 @@
+.heare{
+   border: 0px 0px 2px 0px;
+   border-bottom: 2px solid white;
+    
+}
+
+.header-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px ;
+    font-size: larger;
+}
+
+.header-icon{
+    width: 64px;
+}

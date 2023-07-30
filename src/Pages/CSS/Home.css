@@ -1,0 +1,24 @@
+.posterImg > img {
+    margin: auto;
+    display: block;
+    width: 100%;
+}
+
+.posterImg_overlay{
+    background-image: linear-gradient(rgb(0,0,0,0) , rgb(0,0,0,1));
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.posterImage__overlay:hover {
+    opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .posterImg_Descripton{
+        max-height: 3.6rem; /* 2 lines with a line height of 1.8em (adjust as needed) */
+        line-height: 1.8rem; /* Adjust the line height to match your design */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
