@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import "./CSS/MovieDetail.css"
 import { useParams } from 'react-router-dom'
 import { BiLinkAlt } from "react-icons/bi";
-import YouTube from 'react-youtube';
 
 const MovieDetail = () => {
 
@@ -32,32 +31,24 @@ const MovieDetail = () => {
             .catch(err => console.error(err));
     };
 
-    // useEffect(() => {
-    //     getVideo()
-    // }, [])
+    useEffect(() => {
+        getVideo()
+    }, [])
 
-    // const getVideo = () => {
-    //     const options = {
-    //         method: 'GET',
-    //         headers: {
-    //             accept: 'application/json',
-    //             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2UzNWI2YWYwZDI5ZGIzNzkyNTVkMTI1MTExN2IxNSIsInN1YiI6IjY0YzJiMzk3MmYxYmUwMDE0ZWY2NmMxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Om1pvX6y-LD1RBgwalZweLx6hhFOTZJ4shnRsROs4SI'
-    //         }
-    //     };
+    const getVideo = () => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2UzNWI2YWYwZDI5ZGIzNzkyNTVkMTI1MTExN2IxNSIsInN1YiI6IjY0YzJiMzk3MmYxYmUwMDE0ZWY2NmMxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Om1pvX6y-LD1RBgwalZweLx6hhFOTZJ4shnRsROs4SI'
+            }
+        };
 
-    //     fetch(`https://api.themoviedb.org/3/movie/${id}/videos`, options)
-    //         .then(response => response.json())
-    //         .then(video => setMovieVideo(video.results))
-    //         .catch(err => console.error(err));
-    // }
-
-    // const opts = {
-    //     height: '390',
-    //     width: '640',
-    //     playerVars: {
-    //         autoplay: 0,
-    //     },
-    // };
+        fetch(`https://api.themoviedb.org/3/movie/${id}/videos`, options)
+            .then(response => response.json())
+            .then(video => setMovieVideo(video.results[0]))
+            .catch(err => console.error(err));
+    }
 
     return (
         <>
@@ -80,7 +71,7 @@ const MovieDetail = () => {
                                 </div>
                                 <div className="movie_rating">
                                     Vote :
-                                    <span className="text-gray-500 pr-1">{MovieDetail ? MovieDetail.vote_average : ""}</span>
+                                    <span className="text-gray-500 pl-1">{MovieDetail ? MovieDetail.vote_average : ""}</span>
                                     <span className="movie_voteCount text-gray-500">
                                         {MovieDetail ? "(" + MovieDetail.vote_count + ") votes" : ""}
                                     </span>
@@ -89,7 +80,7 @@ const MovieDetail = () => {
                                     {MovieDetail ? MovieDetail.runtime + " mins" : ""}
                                 </div>
                                 <div className="movie_relaeseDate ">
-                                    Release Date :<span className='pr-1 text-gray-500' >{MovieDetail ? MovieDetail.release_date : ""}</span>
+                                    Release Date :<span className='pl-1 text-gray-500' >{MovieDetail ? MovieDetail.release_date : ""}</span>
                                 </div>
                                 <div className="movie_geners">
                                     Gener :
@@ -97,7 +88,7 @@ const MovieDetail = () => {
                                         MovieDetail && MovieDetail.genres
                                             ?
                                             MovieDetail.genres.map((genre, index) => (
-                                                <div div key={index}><span className="movie_genre p-1 text-gray-500"  id={genre.id}>{genre.name}</span></div>
+                                                <div div key={index}><span className="movie_genre p-1 text-gray-500" id={genre.id}>{genre.name}</span></div>
                                             )) : ""
                                     }
                                 </div>
@@ -112,8 +103,8 @@ const MovieDetail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="movie_heading text-center font-medium text-[20px]">Usefull Links</div>
-                    <div className="movie_links flex justify-evenly mb-5">
+                    <div className="movie_heading text-center font-medium text-[20px] ">Usefull Links</div>
+                    <div className="movie_links flex justify-evenly mb-20">
                         {
                             MovieDetail && MovieDetail.homepage && <a href={MovieDetail.homepage} target="_blnak" style={{ textDecoration: "none" }}>
                                 <p><span className='movie_homeButton movie_button flex flex-row gap-1 items-center font-medium text-[20px] bg-blue-900 rounded-md'>Home<BiLinkAlt /></span></p>
@@ -125,33 +116,28 @@ const MovieDetail = () => {
                             </a>
                         }
                     </div>
-                    {/* <div className="movie_heading">Production Companies</div>
-                    <div className="movie_production">
-                        {
-                            MovieDetail && MovieDetail.production_companies && MovieDetail.production_companies.map((company) => (
-                                <>
-                                    {
-                                        company.logo_path
-                                        &&
-                                        <span className='production_company_img'>
-                                            <img className='movie_productionComapany' src={"https://image.tmdb.org/t/p/original" + company.logo_path} alt="" />
-                                            <span>{company.name}</span>
-                                        </span>
-                                    }
-                                </>
-                            ))
-                        }
-                    </div> */}
                 </div>
 
             </div>
 
 
             {/* video player */}
-            {/* <div className="yotube">
-            <h1 className="title">TRAILER</h1>
-                <YouTube videoId={id} opts={opts} />
-            </div> */}
+            <div className='flex flex-col justify-center items-center mb-40 md:mb-20 '>
+                <h1 className="title mb-2 text-xl">TRAILER</h1>
+                {MovieVideo && (
+                    <>
+                        <h2 className='text-lg mb-3 text-gray-500'>{MovieVideo.name}</h2>
+                        <div className="video">
+                            <iframe
+                            title={MovieVideo.name}
+                            src={`https://www.youtube.com/embed/${MovieVideo.key}`}
+                            allow="autoplay; encrypted-media"
+                            allowFullScreen
+                            />
+                        </div>
+                    </>
+                )}
+            </div>
 
         </>
     )

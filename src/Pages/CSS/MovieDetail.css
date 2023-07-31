@@ -66,3 +66,13 @@
     border: 2px solid white;
     padding: 5px;
 }
+
+iframe{
+  width: 100%; /* Sets the width to 100% of its container */
+  height: 400px; /* Sets the height to a fixed value of 400 pixels */
+  max-width: 800px; /* Sets the maximum width to 800 pixels */
+  max-height: 600px; /* Sets the maximum height to 600 pixels */
+  min-width: 300px; /* Sets the minimum width to 300 pixels */
+  min-height: 200px; /* Sets the minimum height to 200 pixels */
+  aspect-ratio: 16 / 9; /* This property is not widely supported yet */
+}
