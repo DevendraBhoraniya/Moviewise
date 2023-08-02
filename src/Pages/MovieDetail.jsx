@@ -58,7 +58,7 @@ const MovieDetail = () => {
                     <div className="movie_detail">
                         <div className="movie_detail_left">
                             <div className="movie_posterbox">
-                                <img src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.poster_path : ""}`} alt="" className="movie_poster" />
+                                <img src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.poster_path : ""}`} alt="" className="movie_poster hidden md:block" />
                             </div>
                         </div>
                         <div className="movie_detail_right">
@@ -122,12 +122,12 @@ const MovieDetail = () => {
 
 
             {/* video player */}
-            <div className='flex flex-col justify-center items-center mb-40 md:mb-20 '>
+            <div className='flex flex-col justify-center items-center'>
                 <h1 className="title mb-2 text-xl">TRAILER</h1>
                 {MovieVideo && (
                     <>
                         <h2 className='text-lg mb-3 text-gray-500'>{MovieVideo.name}</h2>
-                        <div className="video">
+                        <div className="video flex justify-center mb-44 md:mb-24">
                             <iframe
                             title={MovieVideo.name}
                             src={`https://www.youtube.com/embed/${MovieVideo.key}`}

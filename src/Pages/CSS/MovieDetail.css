@@ -3,24 +3,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  position: relative;
 }
 
 .movie_intro {
   width: 80%;
 }
 
-.movie_img{
-    border: 2px solid gray;
+.movie_img {
+  border: 2px solid gray;
+  position: absolute;
+  width: 80%;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  height: auto;
+  z-index: -5;
 }
 
 .movie_detail {
+  margin-top: 33%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   padding: 5%;
+  background: rgb(63,94,251);
+  background: linear-gradient(0deg, rgba(63,94,251,0) 0%, rgba(0,0,0,.75) 55%, rgba(0,0,0,.75) 84%, rgba(0,0,0,0) 100%);
 }
 
 .movie_detail_left {
@@ -57,18 +67,18 @@
   margin-left: 1rem;
 }
 
-.movie_homeButton{
-    border: 2px solid white;
-    padding: 5px;
+.movie_homeButton {
+  border: 2px solid white;
+  padding: 5px;
 }
 
-.movie_ImdbButton{
-    border: 2px solid white;
-    padding: 5px;
+.movie_ImdbButton {
+  border: 2px solid white;
+  padding: 5px;
 }
 
-iframe{
-  width: 100%; /* Sets the width to 100% of its container */
+iframe {
+  width: 90%; /* Sets the width to 100% of its container */
   height: 400px; /* Sets the height to a fixed value of 400 pixels */
   max-width: 800px; /* Sets the maximum width to 800 pixels */
   max-height: 600px; /* Sets the maximum height to 600 pixels */
