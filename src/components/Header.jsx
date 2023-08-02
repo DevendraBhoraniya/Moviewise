@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="header flex justify-between p-4 mb-2">
+      <div className="header flex justify-between nd:p-4 p-2 md:mb-2 mb-0 ">
         <div className="header-right">
           <Link to="/"><img className='header-icon' src="/logo.png" alt="" /></Link>
         </div>
@@ -48,12 +48,12 @@ const Header = () => {
 
         </div>
       </div>
-      <div className={`absolute z-[2] w-full ${toggle ? "block" : "hidden"}` }>
-        <div className={`bg-black/75 text-white flex flex-col gap-5 justify-center items-center ${toggle ? "block" : "hidden"}`}>
-        <Link to="/movies/popular" onClick={handleLinkClick}>Popular</Link>
-        <Link to="/movies/top_rated" onClick={handleLinkClick}>Top Rated</Link>
-        <Link to="/movies/upcoming" onClick={handleLinkClick}>Upcoming</Link>
-        <Link to="/search" onClick={handleLinkClick}>Search</Link>
+      <div className={`absolute z-[2] w-full ${toggle ? "block" : "hidden"}`}>
+        <div className={`bg-black/90 text-white flex flex-col gap-5 p-4 justify-center items-center ${toggle ? "block" : "hidden"}`}>
+          <Link to="/movies/popular" className='p-3' >Popular</Link>
+          <Link to="/movies/top_rated" className='p-3'>Top Rated</Link>
+          <Link to="/movies/upcoming" className='p-3'>Upcoming</Link>
+          <Link to="/search" className='p-3'>Search</Link>
         </div>
       </div>
     </>

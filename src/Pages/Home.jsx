@@ -73,14 +73,14 @@ const Home = () => {
                                             <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`} alt="" />
                                         </div>
                                         <div className="posterImg_overlay pl-4 mt-[15%] md:p-20 p-8 bottom-0 h-[70%] flex flex-col w-[100%] justify-end items-start">
-                                            <div className="posterImg_title md:font-black font-semibold  text-[2rem] md:text-[4rem] mb-[0.4rem] text-left ">
+                                            <div className="posterImg_title md:font-black font-semibold text-[1rem] md:text-[4rem] mb-[0.4rem] text-left ">
                                                 {movie ? movie.title : ""}
                                             </div>
-                                            <div className="posterImg_relasedate md:text-[2rem] text-[1.5rem] mb-4 ">
+                                            <div className="posterImg_relasedate md:text-[2rem] text-[1rem] mb-4 ">
                                                 {movie ? movie.release_date : ""}
-                                                <span className='posterImg_rating ml-12 '>Rating : {movie ? movie.vote_average : ""}</span>
+                                                <span className='posterImg_rating md:ml-12 ml-5'>Rating : {movie ? movie.vote_average : ""}</span>
                                             </div>
-                                            <div className="posterImg_Descripton italic font-[1rem] flex text-left md:w-[50%] w-[100%] ">
+                                            <div className="posterImg_Descripton italic text-[1rem] flex text-left md:w-[50%] w-[100%] ">
                                                 {movie ? movie.overview : ""}
                                             </div>
                                         </div>
