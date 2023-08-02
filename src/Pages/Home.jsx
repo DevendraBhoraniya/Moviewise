@@ -9,6 +9,14 @@ const Home = () => {
 
     const [popular, setPopular] = useState([])
     const [trending, setTrending] = useState([])
+    const [isLoading, setIsLOading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLOading(false)
+        }, 2000)
+    }, []);
+
 
     useEffect(() => {
         const options = {
@@ -45,58 +53,66 @@ const Home = () => {
 
     return (
         <>
-            <div className="poster">
-                <Splide
+            <div className="poster flex justify-center ">
+                <Splide 
                     options={{
                         perPage: 1,
                         arrows: true,
                         gap: "5rem",
                         autoplay: 'play',
+                        width: "90%",
+                        hight : "90%",
+                        type   : 'loop',
                     }}
                 >
-                    {
-                        popular.map((movie, index) => {
-                            return (
+                    {popular.map((movie, index) => {
+                        return (
                                 <SplideSlide key={index}>
-                                    <Link style={{ textDecoration: "none", color: "white" }} to={`/movie/${movie.id}`}>
-                                        <div className="poster_img md:h-[600px] h-[300px] ">
+                                    <Link style={{ textDecoration: "none", color: "white", position: "relative" }} to={`/movie/${movie.id}`}>
+                                        <div className="poster_img md:h-[550px] h-[300px] absolute z-[-1]">
                                             <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`} alt="" />
                                         </div>
-                                        <div className="posterImg_overlay absolute md:p-20 p-8 bottom-0 h-[70%] flex flex-col w-[100%] justify-end items-start">
-                                            <div className="posterImg_title md:font-black text-[2.5rem] md:text-[4rem] mb-[0.4rem] text-left">
+                                        <div className="posterImg_overlay pl-4 mt-[15%] md:p-20 p-8 bottom-0 h-[70%] flex flex-col w-[100%] justify-end items-start">
+                                            <div className="posterImg_title md:font-black font-semibold  text-[2rem] md:text-[4rem] mb-[0.4rem] text-left ">
                                                 {movie ? movie.title : ""}
                                             </div>
-                                            <div className="posterImg_relasedate md:text-[2rem] text-[1.5rem] mb-4">
+                                            <div className="posterImg_relasedate md:text-[2rem] text-[1.5rem] mb-4 ">
                                                 {movie ? movie.release_date : ""}
-                                                <span className='posterImg_rating ml-12'>Rating : {movie ? movie.vote_average : ""}
-                                                </span>
+                                                <span className='posterImg_rating ml-12 '>Rating : {movie ? movie.vote_average : ""}</span>
                                             </div>
-                                            <div className="posterImg_Descripton italic font-[1rem] flex text-left md:w-[50%] w-[100%]">
+                                            <div className="posterImg_Descripton italic font-[1rem] flex text-left md:w-[50%] w-[100%] ">
                                                 {movie ? movie.overview : ""}
                                             </div>
                                         </div>
                                     </Link>
                                 </SplideSlide>
-                            )
-                        })
-                    }
+                        );
+                    })}
                 </Splide>
-            </div>
+
+            </div >
 
             {/* Trending */}
-            <div className='mx-20 mb-5'>
-                <div className="text-3xl mt-10 mb-10 flex justify-start items-start ">
-                    TRENDING
-                </div>
-                <div className="tending_list flex justify-center items-center flex-wrap gap-4 mb-16">
-                    {
-                        trending.map((movie, index) => (
-                            <Card key={index} movie={movie} />
-                        ))
-                    }
-                </div>
-            </div>
-
+            { isLoading ?
+                    (
+                        <div className='animate-pulse  w-full flex justify-center mt-[15%]' >
+                            <img src="logo.png" alt="Loading.." className='bg-gray-400 rounded-full p-4 h-[200px] w-[200px]' />
+                        </div>
+                    ) : (
+                        <div className='mx-20 mb-5'>
+                            <div className="text-3xl mt-10 mb-10 flex justify-start items-start ">
+                                TRENDING
+                            </div>
+                            <div className="tending_list flex justify-center items-center flex-wrap gap-4 mb-20">
+                                {
+                                    trending.map((movie, index) => (
+                                        <Card key={index} movie={movie} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    )
+            }
         </>
     )
 }

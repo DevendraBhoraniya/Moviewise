@@ -1,7 +1,5 @@
-.heare{
-   border: 0px 0px 2px 0px;
-   border-bottom: 2px solid white;
-    
+.header{
+    border-bottom: 2px solid white;
 }
 
 .header-left{
@@ -14,4 +12,5 @@
 
 .header-icon{
     width: 64px;
+    height: 64px;
 }

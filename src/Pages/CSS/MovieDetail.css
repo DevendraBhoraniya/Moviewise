@@ -13,7 +13,7 @@
 .movie_img {
   border: 2px solid gray;
   position: absolute;
-  width: 80%;
+  width: 70%;
   top: 0%;
   left: 50%;
   transform: translate(-50%, -0%);
@@ -22,7 +22,7 @@
 }
 
 .movie_detail {
-  margin-top: 33%;
+  margin-top: 24%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@
 }
 
 .movie_poster {
-  width: 70%;
+  width: 60%;
   border: 2px solid white;
   border-radius: 10px;
   margin-left: 20%;
@@ -78,11 +78,11 @@
 }
 
 iframe {
-  width: 90%; /* Sets the width to 100% of its container */
-  height: 400px; /* Sets the height to a fixed value of 400 pixels */
-  max-width: 800px; /* Sets the maximum width to 800 pixels */
-  max-height: 600px; /* Sets the maximum height to 600 pixels */
-  min-width: 300px; /* Sets the minimum width to 300 pixels */
-  min-height: 200px; /* Sets the minimum height to 200 pixels */
-  aspect-ratio: 16 / 9; /* This property is not widely supported yet */
+  width: 90%; 
+  height: 400px;
+  max-width: 50%; 
+  max-height: 600px; 
+  min-width: 90%; 
+  min-height: 200px; 
+  aspect-ratio: 16 / 9; 
 }

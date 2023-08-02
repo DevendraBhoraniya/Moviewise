@@ -9,6 +9,9 @@ const Movielist = () => {
     const { type } = useParams()
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const [showLoading, setShowLoading] = useState(false);
+
+
 
 
     const getData = async (page) => {
@@ -33,8 +36,17 @@ const Movielist = () => {
     }
 
     useEffect(() => {
-        getData(currentPage)
-    }, [type, currentPage])
+
+        setShowLoading(true);
+
+        const timer = setTimeout(() => {
+            getData(currentPage);
+            setShowLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [type, currentPage]);
+
 
     const NextPage = async () => {
         setCurrentPage((page) => page + 1);
@@ -54,8 +66,10 @@ const Movielist = () => {
                     {(type ? type : "POPULAR").toUpperCase()}
                 </h2>
                 <div className="list_card flex flex-wrap justify-center gap-4 mb-16">
-                    {isLoading ? ( 
-                        <p>Loading...</p>
+                    {showLoading ? (
+                        <div className='animate-pulse  w-full flex justify-center mt-[15%]' >
+                            <img src="/logo.png" alt="Loading..." className='bg-gray-400 rounded-full p-4 h-[200px] w-[200px]' />
+                        </div>
                     ) : (
                         MovieList.map((movie, index) => {
                             return <Card key={index} movie={movie} />;

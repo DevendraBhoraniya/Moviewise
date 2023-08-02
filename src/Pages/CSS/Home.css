@@ -1,24 +1,30 @@
 .posterImg > img {
-    margin: auto;
-    display: block;
-    width: 100%;
+  margin: auto;
+  display: block;
+  width: 100%;
 }
 
-.posterImg_overlay{
-    background-image: linear-gradient(rgb(0,0,0,0) , rgb(0,0,0,1));
-    opacity: 1;
-    transition: opacity 0.3s;
+.posterImg_overlay {
+  opacity: 1;
+  transition: opacity 0.3s;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(1, 1, 1, 0.7344187675070029) 30%,
+    rgba(1, 1, 1, 0.7792366946778712) 75%,
+    rgba(1, 1, 1, 0) 100%
+  );
 }
 
 .posterImage__overlay:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
-    .posterImg_Descripton{
-        max-height: 3.6rem; /* 2 lines with a line height of 1.8em (adjust as needed) */
-        line-height: 1.8rem; /* Adjust the line height to match your design */
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .posterImg_Descripton {
+    max-height: 3.6rem;
+    line-height: 1.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
