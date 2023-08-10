@@ -66,7 +66,7 @@ const MovieDetail = () => {
             }
         };
 
-        fetch('https://api.themoviedb.org/3/movie/872585/credits?language=en-US', options)
+        fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, options)
             .then(response => response.json())
             .then(cast => setMovieCast(cast.cast))
             .catch(err => console.error(err));
