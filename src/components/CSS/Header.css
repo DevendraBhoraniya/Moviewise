@@ -1,16 +1,44 @@
-.header{
-    border-bottom: 1px solid rgb(128, 128, 128);
+.header {
+  border-bottom: 1px solid rgb(128, 128, 128);
 }
 
-.header-left{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px ;
-    font-size: larger;
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  font-size: larger;
 }
 
-.header-icon{
-    width: 64px;
-    height: 64px;
+.header-icon {
+  width: 64px;
+  height: 64px;
+}
+
+/* Add these animation classes to your CSS */
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
 }

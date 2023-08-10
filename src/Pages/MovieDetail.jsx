@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import "./CSS/MovieDetail.css"
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { BiLinkAlt } from "react-icons/bi";
+import Card from '../components/Card';
 
 const MovieDetail = () => {
 
     const [MovieDetail, setMovieDetail] = useState()
     const [MovieVideo, setMovieVideo] = useState()
+    const [similar, setSimilar] = useState()
+    const [moviecast, setMovieCast] = useState()
     const { id } = useParams()
     const [isLoading, setIsLOading] = useState(true)
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLOading(false)
-        }, 2000)
-    }, []);
-
-
+    // to get movie data
     useEffect(() => {
         getData()
         window.scrollTo(0, 0)
     }, []);
-
-
 
     const getData = () => {
         const options = {
@@ -35,20 +30,19 @@ const MovieDetail = () => {
 
         fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
             .then(response => response.json())
-            .then(data => setMovieDetail(data))
+            .then(data => {
+                setMovieDetail(data);
+                setIsLOading(false);
+            })
             .catch(err => console.error(err));
     };
-
-    useEffect(() => {
-        getVideo()
-    }, [])
-
+    // to get video 
     const getVideo = () => {
         const options = {
             method: 'GET',
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2UzNWI2YWYwZDI5ZGIzNzkyNTVkMTI1MTExN2IxNSIsInN1YiI6IjY0YzJiMzk3MmYxYmUwMDE0ZWY2NmMxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Om1pvX6y-LD1RBgwalZweLx6hhFOTZJ4shnRsROs4SI'
+                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
             }
         };
 
@@ -58,6 +52,50 @@ const MovieDetail = () => {
             .catch(err => console.error(err));
     }
 
+    useEffect(() => {
+        getVideo()
+    }, [])
+
+    // get casts
+    const getCast = () => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+            }
+        };
+
+        fetch('https://api.themoviedb.org/3/movie/872585/credits?language=en-US', options)
+            .then(response => response.json())
+            .then(cast => setMovieCast(cast.cast))
+            .catch(err => console.error(err));
+    }
+
+    useEffect(() => {
+        getCast()
+    }, [])
+
+    // to get similar 
+    const getSimilar = () => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+            }
+        };
+
+        fetch(`https://api.themoviedb.org/3/movie/${id}/similar?language=en&page=1`, options)
+            .then(response => response.json())
+            .then(similarMovie => setSimilar(similarMovie.results))
+            .catch(err => console.error(err));
+    }
+
+    useEffect(() => {
+        getSimilar()
+    }, [])
+
     return (
         <>
             {isLoading ?
@@ -66,7 +104,7 @@ const MovieDetail = () => {
                         <img src="/logo.png" alt="Loading..." className='bg-gray-400 rounded-full p-4 h-[200px] w-[200px]' />
                     </div>
                 ) : (
-                    <div className='ALL'>
+                    <div className='ALL my-[3%]'>
                         <div className="movie">
                             <div className="movie_intro">
                                 <img className='movie_img rounded-md' src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.backdrop_path : ""}`} alt="" />
@@ -97,13 +135,13 @@ const MovieDetail = () => {
                                             <div className="movie_relaeseDate ">
                                                 Release Date :<span className='pl-1 text-gray-500' >{MovieDetail ? MovieDetail.release_date : ""}</span>
                                             </div>
-                                            <div className="movie_geners">
+                                            <div className="movie_geners flex">
                                                 Gener :
                                                 {
                                                     MovieDetail && MovieDetail.genres
                                                         ?
                                                         MovieDetail.genres.map((genre, index) => (
-                                                            <div div key={index}><span className="movie_genre p-1 text-gray-500" id={genre.id}>{genre.name}</span></div>
+                                                            <div key={index}><span className="movie_genre p-1 text-gray-500" id={genre.id}>{genre.name}</span></div>
                                                         )) : ""
                                                 }
                                             </div>
@@ -133,12 +171,27 @@ const MovieDetail = () => {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Cast */}
+                        <div className='text-center w-ful text-lg '>Cast Members </div>
+                        <div className="castmain flex flex-row gap-5 overflow-x-scroll mx-[5%]">
+                            {moviecast && moviecast.map((cast, index) => (
+                                <div key={index} className="cast_card flex flex-row justify-center items-center p-5 gap-5 w-[600px] border text-center text-[5px] rounded-xl my-[1%]">
+                                    <img src={`https://image.tmdb.org/t/p/original${cast ? cast.profile_path : ""}`} className='rounded-full w-[80px] object-contain ' />
+                                    <div className='text-center w-[300px]'>
+                                        <p >Charecter Played :<span className='ml-1 text-gray-400'>{cast ? cast.character : ""}</span></p>
+                                        <p>Name :<span className='ml-1 text-gray-400'>{cast ? cast.name : ""}</span></p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
                         {/* video player */}
                         <div className='flex flex-col justify-center items-center'>
-                            <h1 className="title mb-2 text-xl">TRAILER</h1>
+                            <h1 className="title mb-2 text-xl">Video</h1>
                             {MovieVideo && (
                                 <div>
-                                    <h2 className='text-lg mb-3 text-gray-500'>{MovieVideo.name}</h2>
+                                    <h2 className='text-lg mb-3 flex justify-center items-center text-gray-500'>{MovieVideo.name}</h2>
                                     <div className="video flex justify-center mb-44 md:mb-24">
                                         <iframe
                                             title={MovieVideo.name}
@@ -150,6 +203,16 @@ const MovieDetail = () => {
                                 </div>
                             )}
                         </div>
+                        {/* similar */}
+                        <div className="title text-center w-ful text-lg ">Similar</div>
+                        <div className="similar flex mx-[5%]  flex-row  overflow-x-scroll mb-[10%]">
+                            {similar && similar.map((similar, index) => (
+                                <Link to={`/movie/${similar.id}`}>
+                                    <Card key={index} movie={similar} />
+                                </Link>
+                            ))}
+                        </div>
+
                     </div>
                 )}
         </>

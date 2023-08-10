@@ -15,7 +15,7 @@ const Card = ({ movie }) => {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
-        }, 3000)
+        }, 1000)
     }, []);
 
     return (
@@ -27,7 +27,7 @@ const Card = ({ movie }) => {
                 :(
                 <Link to={`/movie/${movie.id}`} style={{ textDecoration: "none", color: "white" }}>
                     <div className="card">
-                        <img className='card_img bg-gray-600 text-black text-center grid place-items-center text-xl w-full h-[300px] font-medium' src={`https://image.tmdb.org/t/p/original${movie && movie.poster_path}`} 
+                        <img className='card_img bg-gray-600 text-black text-center flex justify-center text-xl w-full h-[300px] font-medium' src={`https://image.tmdb.org/t/p/original${movie && movie.poster_path}`} 
                         alt="No Image found" 
                         onLoad={handleImageLoad}    
                         />
