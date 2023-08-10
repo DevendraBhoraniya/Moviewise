@@ -192,7 +192,7 @@ const MovieDetail = () => {
                             {MovieVideo && (
                                 <div>
                                     <h2 className='text-lg mb-3 flex justify-center items-center text-gray-500'>{MovieVideo.name}</h2>
-                                    <div className="video flex justify-center mb-44 md:mb-24">
+                                    <div className="video flex justify-center mb-20 md:mb-24">
                                         <iframe
                                             title={MovieVideo.name}
                                             src={`https://www.youtube.com/embed/${MovieVideo.key}`}
@@ -204,15 +204,16 @@ const MovieDetail = () => {
                             )}
                         </div>
                         {/* similar */}
-                        <div className="title text-center w-ful text-lg ">Similar</div>
-                        <div className="similar flex mx-[5%]  flex-row  overflow-x-scroll mb-[10%]">
-                            {similar && similar.map((similar, index) => (
-                                <Link to={`/movie/${similar.id}`}>
-                                    <Card key={index} movie={similar} />
-                                </Link>
-                            ))}
+                        <div className='mb-[14%]'>
+                            <div className="title text-center w-ful text-lg ">Similar</div>
+                            <div className="similar flex mx-[5%]  flex-row  overflow-x-scroll">
+                                {similar && similar.map((similar, index) => (
+                                    <Link to={`/movie/${similar.id}`}>
+                                        <Card key={index} movie={similar} />
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
-
                     </div>
                 )}
         </>
