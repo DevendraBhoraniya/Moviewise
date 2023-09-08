@@ -3,6 +3,7 @@ import "./CSS/MovieDetail.css"
 import { Link, useParams } from 'react-router-dom'
 import { BiLinkAlt } from "react-icons/bi";
 import Card from '../components/Card';
+import { options } from '../API/TMDBapi';
 
 const MovieDetail = () => {
 
@@ -13,21 +14,8 @@ const MovieDetail = () => {
     const { id } = useParams()
     const [isLoading, setIsLOading] = useState(true)
 
-    // to get movie data
-    useEffect(() => {
-        getData()
-        window.scrollTo(0, 0)
-    }, []);
 
     const getData = () => {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-            }
-        };
-
         fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
             .then(response => response.json())
             .then(data => {
@@ -38,13 +26,6 @@ const MovieDetail = () => {
     };
     // to get video 
     const getVideo = () => {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-            }
-        };
 
         fetch(`https://api.themoviedb.org/3/movie/${id}/videos`, options)
             .then(response => response.json())
@@ -52,19 +33,8 @@ const MovieDetail = () => {
             .catch(err => console.error(err));
     }
 
-    useEffect(() => {
-        getVideo()
-    }, [])
-
     // get casts
     const getCast = () => {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-            }
-        };
 
         fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, options)
             .then(response => response.json())
@@ -72,26 +42,33 @@ const MovieDetail = () => {
             .catch(err => console.error(err));
     }
 
-    useEffect(() => {
-        getCast()
-    }, [])
+
 
     // to get similar 
     const getSimilar = () => {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
-            }
-        };
-
         fetch(`https://api.themoviedb.org/3/movie/${id}/similar?language=en&page=1`, options)
             .then(response => response.json())
             .then(similarMovie => setSimilar(similarMovie.results))
             .catch(err => console.error(err));
     }
 
+    // to get movie data
+    useEffect(() => {
+        getData()
+        window.scrollTo(0, 0)
+    }, []);
+
+    // get moive video
+    useEffect(() => {
+        getVideo()
+    }, [])
+
+    //get casr members
+    useEffect(() => {
+        getCast()
+    }, [])
+
+    //get similars movies 
     useEffect(() => {
         getSimilar()
     }, [])
@@ -107,11 +84,20 @@ const MovieDetail = () => {
                     <div className='ALL my-[3%]'>
                         <div className="movie">
                             <div className="movie_intro">
-                                <img className='movie_img rounded-md' src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.backdrop_path : ""}`} alt="" />
+                                <img 
+                                src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.backdrop_path : ""}`} 
+                                alt="" 
+                                loading='lazy'    
+                                className='movie_img rounded-md' 
+                                />
                                 <div className="movie_detail">
                                     <div className="movie_detail_left">
                                         <div className="movie_posterbox">
-                                            <img src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.poster_path : ""}`} alt="" className="movie_poster hidden md:block" />
+                                            <img 
+                                            src={`https://image.tmdb.org/t/p/original${MovieDetail ? MovieDetail.poster_path : ""}`} 
+                                            alt=""
+                                            loading='lazy' 
+                                            className="movie_poster hidden md:block" />
                                         </div>
                                     </div>
                                     <div className="movie_detail_right">
@@ -173,17 +159,23 @@ const MovieDetail = () => {
                         </div>
 
                         {/* Cast */}
-                        <div className='text-center w-ful text-lg '>Cast Members </div>
-                        <div className="castmain flex flex-row gap-5 overflow-x-scroll mx-[5%]">
-                            {moviecast && moviecast.map((cast, index) => (
-                                <div key={index} className="cast_card flex flex-row justify-center items-center p-5 gap-5 w-[600px] border text-center text-[5px] rounded-xl my-[1%]">
-                                    <img src={`https://image.tmdb.org/t/p/original${cast ? cast.profile_path : ""}`} className='rounded-full w-[80px] object-contain ' />
-                                    <div className='text-center w-[300px]'>
-                                        <p >Charecter Played :<span className='ml-1 text-gray-400'>{cast ? cast.character : ""}</span></p>
-                                        <p>Name :<span className='ml-1 text-gray-400'>{cast ? cast.name : ""}</span></p>
+                        <div className='font-sans text-white' >
+                            <div className='text-center w-ful text-lg '>Cast Members </div>
+                            <div className="castmain flex flex-row gap-5 overflow-x-scroll mx-[5%]">
+                                {moviecast && moviecast.map((cast, index) => (
+                                    <div key={index} className="cast_card flex flex-row justify-center items-center p-5 gap-5 w-[600px] border text-center text-[5px] rounded-xl my-[1%]">
+                                        <img 
+                                        src={`https://image.tmdb.org/t/p/original${cast ? cast.profile_path : ""}`} 
+                                        alt='no image' 
+                                        loading='lazy'
+                                        className='rounded-full w-[80px] object-contain ' />
+                                        <div className='text-center w-[300px]'>
+                                            <p >Charecter Played :<span className='ml-1 text-gray-400'>{cast ? cast.character : ""}</span></p>
+                                            <p>Name :<span className='ml-1 text-gray-400'>{cast ? cast.name : ""}</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
 
                         {/* video player */}
@@ -192,7 +184,7 @@ const MovieDetail = () => {
                             {MovieVideo && (
                                 <div>
                                     <h2 className='text-lg mb-3 flex justify-center items-center text-gray-500'>{MovieVideo.name}</h2>
-                                    <div className="video flex justify-center mb-20 md:mb-24">
+                                    <div className="aspect-video flex justify-center mb-20 md:mb-24">
                                         <iframe
                                             title={MovieVideo.name}
                                             src={`https://www.youtube.com/embed/${MovieVideo.key}`}
@@ -203,8 +195,9 @@ const MovieDetail = () => {
                                 </div>
                             )}
                         </div>
+
                         {/* similar */}
-                        <div className='mb-[14%]'>
+                        {/* <div className='mb-[14%]'>
                             <div className="title text-center w-ful text-lg ">Similar</div>
                             <div className="similar flex mx-[5%]  flex-row  overflow-x-scroll">
                                 {similar && similar.map((similar, index) => (
@@ -213,7 +206,7 @@ const MovieDetail = () => {
                                     </Link>
                                 ))}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 )}
         </>

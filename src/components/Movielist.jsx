@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from './Card';
 import './CSS/Movielist.css';
+import { options } from '../API/TMDBapi';
 
 const Movielist = () => {
     const [MovieList, setMovieList] = useState([]);
@@ -11,14 +12,6 @@ const Movielist = () => {
     const [showLoading, setShowLoading] = useState(false);
 
     const getData = async (page) => {
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-            },
-        };
-
         try {
             setShowLoading(true);
             const response = await fetch(`https://api.themoviedb.org/3/movie/${type ? type : 'popular'}?page=${page}`, options);

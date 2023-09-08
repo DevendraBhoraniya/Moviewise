@@ -1,33 +1,43 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+} from "@clerk/clerk-react";
 import Home from './Pages/Home';
-import Movielist from './components/Movielist';
-import Error from './Pages/Error';
-import MovieDetail from './Pages/MovieDetail';
-import Footer from './components/Footer';
-import Search from './Pages/Search';
+
+if (!import.meta.env.VITE_API_CLERK_PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
+const clerkPubKey = import.meta.env.VITE_API_CLERK_PUBLISHABLE_KEY;
+
+const ClerkAuth = () => {
+  return (
+    <>
+      <ClerkProvider publishableKey={clerkPubKey}>
+        <SignedIn>
+          <Home />
+        </SignedIn>
+        <SignedOut>
+          <Home />
+        </SignedOut>
+      </ClerkProvider>
+    </>
+  );
+};
 
 function App() {
 
   return (
     <>
-
-      <div className='App'>
-        <Router>
-          <Header />
-          <Routes>
-            <Route index element={<Home />}></Route>
-            <Route path='movie/:id' element={<MovieDetail />}></Route>
-            <Route path='movies/:type' element={<Movielist />}></Route>
-            <Route path='Search' element={<Search />}></Route>
-            <Route path='/*' element={<Error />}></Route>
-          </Routes>
-          <Footer />
-        </Router>
-      </div>
-
-      
+      {/* <div className="signin flex flex-col items-center justify-center h-[100vh] ">
+         <span className='text-[3rem] font-semibold ' >
+          First Sign in To Dive in to Movies
+         </span> 
+         <a href="/sign-in" className='text-[1.5rem] bg-gray-700 rounded-lg p-3' >SIGN IN</a>
+      </div> */}
+      <ClerkAuth />
 
     </>
   )

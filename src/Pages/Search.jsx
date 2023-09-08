@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../components/Card';
 import './CSS/serach.css';
+import { options } from '../API/TMDBapi';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,18 +20,11 @@ const Search = () => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit(e); // Pass the event object to the handleSubmit function
+      handleSubmit(e); 
     }
   };
 
   const getMovies = (query) => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-      },
-    };
 
     fetch(`https://api.themoviedb.org/3/search/movie?query=${query}`, options)
       .then((response) => response.json())
