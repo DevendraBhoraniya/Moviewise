@@ -22,7 +22,7 @@ Make sure to create a `.env` file in the project root directory and add these va
 
 Follow these steps to get started with Movieswise:
 
-1. Clone the repository: `git clone https://github.com/yourusername/movieswise.git`
+1. Clone the repository: `https://github.com/DevendraBhoraniya/Moviewise.git`
 2. Navigate to the project directory: `cd movieswise`
 3. Install dependencies: `npm install` or `yarn install`
 4. Set up your environment variables in a `.env` file as described above.
