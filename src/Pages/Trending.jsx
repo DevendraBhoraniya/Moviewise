@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, EffectFade, Navigation } from 'swiper/modules';
+import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -57,10 +57,11 @@ const Home = () => {
       {/* sliders */}
       <div className='mb-16' >
         <Swiper
-          modules={[Pagination, EffectFade ]}
+          modules={[Pagination, EffectFade , Autoplay ]}
           spaceBetween={25}
           slidesPerView={1}
           navigation
+          autoplay={{ delay: 1000 }}
           pagination={{ clickable: true }}
           effect='fade'
         >
